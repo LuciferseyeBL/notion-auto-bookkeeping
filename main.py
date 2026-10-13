@@ -7,7 +7,7 @@ from notion_client import Client
 app = FastAPI()
 
 # 直接填入妳提供的金鑰與資料庫 ID，確保不會讀不到
-NOTION_TOKEN = "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"
+NOTION_TOKEN = "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"
 DATABASE_ID = "3f7c65ac4ce78051b102f2167825b374"
 
 notion = Client(auth=NOTION_TOKEN)
