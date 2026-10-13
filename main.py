@@ -6,9 +6,9 @@ from notion_client import Client
 
 app = FastAPI()
 
-# 填入妳的 Notion API 金鑰與資料庫 ID（或從環境變數讀取）
-NOTION_TOKEN = os.getenv("NOTION_TOKEN", "YOUR_NOTION_TOKEN")
-DATABASE_ID = os.getenv("DATABASE_ID", "YOUR_DATABASE_ID")
+# 直接填入妳提供的金鑰與資料庫 ID，確保不會讀不到
+NOTION_TOKEN = "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"
+DATABASE_ID = "3f7c65ac4ce78051b102f2167825b374"
 
 notion = Client(auth=NOTION_TOKEN)
 
@@ -28,12 +28,7 @@ async def receive_notification(request: Request):
             
         print(f"Received notification: {text}")
 
-        # ------------------------------------
-        # 在這裡呼叫妳之前的 AI 解析 / 正則處理邏輯
-        # 範例：提取金額與消費地點
-        # ------------------------------------
-        
-        # 簡單示範寫入 Notion (請根據妳 Notion 資料庫的實際欄位調整)
+        # 寫入 Notion 資料庫
         notion.pages.create(
             parent={"database_id": DATABASE_ID},
             properties={
