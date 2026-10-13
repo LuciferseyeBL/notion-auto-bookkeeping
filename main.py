@@ -6,7 +6,6 @@ from notion_client import Client
 
 app = FastAPI()
 
-# 直接填入妳提供的金鑰與資料庫 ID，確保不會讀不到
 NOTION_TOKEN = "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"
 DATABASE_ID = "3f7c65ac4ce78051b102f2167825b374"
 
@@ -19,7 +18,6 @@ def read_root():
 @app.post("/webhook")
 async def receive_notification(request: Request):
     try:
-        # 讀取 MacroDroid 傳過來的 raw body（文字內容）
         body_bytes = await request.body()
         text = body_bytes.decode("utf-8")
         
@@ -28,14 +26,14 @@ async def receive_notification(request: Request):
             
         print(f"Received notification: {text}")
 
-        # 寫入 Notion 資料庫
+        # 寫入 Notion 資料庫（對應正確的欄位名稱：品項、原始訊息、日期）
         notion.pages.create(
             parent={"database_id": DATABASE_ID},
             properties={
-                "名稱": {
+                "品項": {
                     "title": [{"text": {"content": text[:20] + "..."}}]
                 },
-                "明細": {
+                "原始訊息": {
                     "rich_text": [{"text": {"content": text}}]
                 },
                 "日期": {
