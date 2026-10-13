@@ -18,13 +18,16 @@ def read_root():
 @app.post("/webhook")
 async def receive_notification(request: Request):
     try:
+        # 嘗試讀取 JSON 或純文字
         body_bytes = await request.body()
         text = body_bytes.decode("utf-8")
         
+        # 強制印出收到的原始內容與長度，方便在 Render Logs 查看
+        print(f"DEBUG - Received raw body bytes: {body_bytes}")
+        print(f"DEBUG - Decoded text length: {len(text)}, content: {text}")
+        
         if not text:
             return {"status": "error", "message": "Empty content"}
-            
-        print(f"Received notification: {text}")
 
         # ------------------------------------
         # 智慧解析：使用正則表達式提取金額與品項
