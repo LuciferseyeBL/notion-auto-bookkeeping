@@ -6,7 +6,7 @@ from notion_client import Client
 
 app = FastAPI()
 
-NOTION_TOKEN = "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"
+NOTION_TOKEN = "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"
 DATABASE_ID = "3f7c65ac4ce78051b102f2167825b374"
 
 notion = Client(auth=NOTION_TOKEN)
